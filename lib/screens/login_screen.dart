@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import '/screens/mobile_verfication_screen.dart';
 import '/constants.dart';
 
 class LoginScreen extends StatelessWidget {
@@ -8,77 +9,85 @@ class LoginScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Column(
-        crossAxisAlignment: CrossAxisAlignment.stretch,
-        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-        children: [
-          Column(
+      body: SingleChildScrollView(
+        child: SizedBox(
+          height: MediaQuery.of(context).size.height,
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.stretch,
+            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
             children: [
+              Column(
+                children: [
+                  Padding(
+                    padding: const EdgeInsets.only(
+                        left: 80, right: 80, top: 50, bottom: 10),
+                    child: Image.asset(
+                      'assets/fruit-market.png',
+                      fit: BoxFit.fitWidth,
+                    ),
+                  ),
+                  Text(
+                    'Fruit Market',
+                    textAlign: TextAlign.center,
+                    style: GoogleFonts.poppins(
+                      color: primaryColor,
+                      fontSize: 36.0,
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
+                ],
+              ),
               Padding(
-                padding: const EdgeInsets.only(
-                  left: 80,
-                  right: 80,
-                  top: 50,
-                  bottom: 10,
-                ),
-                child: Image.asset(
-                  'assets/fruit-market.png',
-                  fit: BoxFit.fitWidth,
+                padding: const EdgeInsets.symmetric(
+                    horizontal: 12.0, vertical: 10.0),
+                child: Hero(
+                  tag: 'input',
+                  child: GestureDetector(
+                    onTap: () => Navigator.of(context).push(MaterialPageRoute(
+                        builder: (_) => const MobileVerificationScreen())),
+                    child: InputDecorator(
+                      child: Text(
+                        'Enter Your Mobile Number',
+                        style: GoogleFonts.poppins(),
+                      ),
+                      decoration: InputDecoration(
+                        border: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(12.0),
+                        ),
+                        focusedBorder: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(12.0),
+                        ),
+                      ),
+                    ),
+                  ),
                 ),
               ),
               Text(
-                'Fruit Market',
+                'OR',
                 textAlign: TextAlign.center,
                 style: GoogleFonts.poppins(
-                  color: primaryColor,
-                  fontSize: 36.0,
-                  fontWeight: FontWeight.bold,
+                  fontWeight: FontWeight.w600,
+                  fontSize: 16.0,
                 ),
               ),
+              Row(
+                mainAxisSize: MainAxisSize.max,
+                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                children: [
+                  LoginButton(
+                    imageURL: 'assets/google-logo.png',
+                    onPressed: () {},
+                  ),
+                  LoginButton(
+                    imageURL: 'assets/facebook-logo.png',
+                    onPressed: () {},
+                  ),
+                ],
+              ),
+              const SizedBox(height: 50.0),
             ],
           ),
-          Padding(
-            padding:
-                const EdgeInsets.symmetric(horizontal: 12.0, vertical: 10.0),
-            child: TextField(
-              textInputAction: TextInputAction.done,
-              keyboardType: TextInputType.phone,
-              decoration: InputDecoration(
-                hintText: 'Enter Your Mobile Number',
-                hintStyle: GoogleFonts.poppins(),
-                border: OutlineInputBorder(
-                  borderRadius: BorderRadius.circular(12.0),
-                ),
-                focusedBorder: OutlineInputBorder(
-                  borderRadius: BorderRadius.circular(12.0),
-                ),
-              ),
-            ),
-          ),
-          Text(
-            'OR',
-            textAlign: TextAlign.center,
-            style: GoogleFonts.poppins(
-              fontWeight: FontWeight.w600,
-              fontSize: 16.0,
-            ),
-          ),
-          Row(
-            mainAxisSize: MainAxisSize.max,
-            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-            children: [
-              LoginButton(
-                imageURL: 'assets/google-logo.png',
-                onPressed: () {},
-              ),
-              LoginButton(
-                imageURL: 'assets/facebook-logo.png',
-                onPressed: () {},
-              ),
-            ],
-          ),
-          const SizedBox(height: 50.0),
-        ],
+        ),
       ),
     );
   }
