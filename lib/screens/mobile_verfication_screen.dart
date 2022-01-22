@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import '/constants.dart';
+import 'widgets/custom_button.dart';
 import 'widgets/number_button.dart';
 
 class MobileVerificationScreen extends StatefulWidget {
@@ -75,27 +76,9 @@ class _MobileVerificationScreenState extends State<MobileVerificationScreen> {
               ),
               Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 12.0),
-                child: TextButton(
+                child: CustomButton(
+                  text: 'VERIFY',
                   onPressed: _verifying ? null : () => _verify(),
-                  child: Text(
-                    'VERIFY',
-                    style: GoogleFonts.poppins(
-                      color: Colors.white,
-                      fontWeight: FontWeight.w600,
-                    ),
-                  ),
-                  style: ButtonStyle(
-                    overlayColor: MaterialStateProperty.all(Colors.green[800]),
-                    shape: MaterialStateProperty.all(
-                      RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(12.0),
-                      ),
-                    ),
-                    padding: MaterialStateProperty.all(
-                      const EdgeInsets.symmetric(vertical: 16.0),
-                    ),
-                    backgroundColor: MaterialStateProperty.all(primaryColor),
-                  ),
                 ),
               ),
               Row(
