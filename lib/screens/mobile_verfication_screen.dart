@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:fruit_market_app/constants.dart';
 import 'package:google_fonts/google_fonts.dart';
-import '/constants.dart';
 import 'widgets/custom_button.dart';
 import 'widgets/number_button.dart';
 
@@ -13,48 +13,60 @@ class MobileVerificationScreen extends StatefulWidget {
 }
 
 class _MobileVerificationScreenState extends State<MobileVerificationScreen> {
-  late TextEditingController _phoneNumberController;
+  late TextEditingController _textController;
   bool _verifying = false;
+  bool _verificationCodeSent = false;
 
   @override
   void initState() {
     super.initState();
-    _phoneNumberController = TextEditingController();
+    _textController = TextEditingController();
   }
 
   @override
   void dispose() {
     super.dispose();
-    _phoneNumberController.dispose();
+    _textController.dispose();
   }
 
   void _updateNumber(int n) {
-    if (_phoneNumber.length == 10) return;
-    _phoneNumberController.text += n.toString();
+    if (_verificationCodeSent && _textController.text.length == 4) return;
+    if (!_verificationCodeSent && _textValue.length == 10) return;
+    _textController.text += n.toString();
     setState(() {});
   }
 
-  String get _phoneNumber {
-    return _phoneNumberController.text;
+  String get _textValue {
+    return _textController.text;
   }
 
   void _clearPhoneNumber() {
-    if (_phoneNumber.isEmpty) return;
-    if (_phoneNumber.length == 1) {
-      _phoneNumberController.clear();
+    if (_textValue.isEmpty) return;
+    if (_textValue.length == 1) {
+      _textController.clear();
     } else {
-      _phoneNumberController.text =
-          _phoneNumber.substring(0, _phoneNumber.length - 1);
+      _textController.text = _textValue.substring(0, _textValue.length - 1);
     }
     setState(() {});
   }
 
   Future<void> _verify() async {
+    if (_verificationCodeSent && _textValue.length != 4) return;
+    if (!_verificationCodeSent && _textValue.length != 10) return;
     setState(() {
       _verifying = true;
     });
-    //TODO:implement the mobile number verification
-    await Future.delayed(Duration(seconds: 3));
+    if (!_verificationCodeSent) {
+      //TODO:implement the mobile number verification code sending operation
+      await Future.delayed(Duration(seconds: 3));
+      //TODO:clear only if successful
+      _textController.clear();
+      //TODO:set true only if verification code sent
+      _verificationCodeSent = true;
+    } else {
+      //TODO:mobile number code verification
+      await Future.delayed(Duration(seconds: 3));
+    }
     setState(() {
       _verifying = false;
     });
@@ -71,15 +83,65 @@ class _MobileVerificationScreenState extends State<MobileVerificationScreen> {
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
             mainAxisSize: MainAxisSize.max,
             children: [
-              SafeArea(
-                child: MobileNumberInputField(phoneNumber: _phoneNumber),
-              ),
-              Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 12.0),
-                child: CustomButton(
-                  text: 'VERIFY',
-                  onPressed: _verifying ? null : () => _verify(),
+              if (!_verificationCodeSent)
+                SafeArea(
+                  child: MobileNumberInputField(phoneNumber: _textValue),
                 ),
+              if (_verificationCodeSent)
+                SafeArea(
+                  child: Text(
+                    'Enter the 4 digit code that was\nsent to your mobile number',
+                    textAlign: TextAlign.center,
+                    style: GoogleFonts.poppins(),
+                  ),
+                ),
+              if (_verificationCodeSent)
+                Row(
+                  mainAxisSize: MainAxisSize.max,
+                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                  children: [
+                    VerificationCodeInputField(
+                        num: _textValue.isNotEmpty ? _textValue[0] : ' '),
+                    VerificationCodeInputField(
+                        num: _textValue.length >= 2 ? _textValue[1] : ' '),
+                    VerificationCodeInputField(
+                        num: _textValue.length >= 3 ? _textValue[2] : ' '),
+                    VerificationCodeInputField(
+                        num: _textValue.length >= 4 ? _textValue[3] : ' '),
+                  ],
+                ),
+              Column(
+                crossAxisAlignment: CrossAxisAlignment.stretch,
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 12.0),
+                    child: CustomButton(
+                      text: 'VERIFY',
+                      onPressed: _verifying ? null : () => _verify(),
+                    ),
+                  ),
+                  if (_verificationCodeSent)
+                    Align(
+                      alignment: Alignment.topRight,
+                      child: Padding(
+                        padding: const EdgeInsets.only(right: 8.0),
+                        child: TextButton(
+                          onPressed: () {
+                            //TODO:implement resend verification code
+                          },
+                          style: ButtonStyle(
+                            overlayColor: MaterialStateProperty.all(
+                                primaryColor.withAlpha(50)),
+                          ),
+                          child: Text(
+                            'Resend Again?',
+                            style: GoogleFonts.poppins(fontSize: 12.0),
+                          ),
+                        ),
+                      ),
+                    ),
+                ],
               ),
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
@@ -198,14 +260,57 @@ class _MobileVerificationScreenState extends State<MobileVerificationScreen> {
   }
 }
 
+class VerificationCodeInputField extends StatelessWidget {
+  final String num;
+  const VerificationCodeInputField({
+    Key? key,
+    required this.num,
+  })  : assert(num.length == 1),
+        super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return ClipRRect(
+      borderRadius: BorderRadius.circular(40.0),
+      child: Container(
+        alignment: Alignment.center,
+        height: 60,
+        width: 60,
+        decoration: const BoxDecoration(
+          shape: BoxShape.circle,
+          color: Color(0xF0EFEFEF),
+        ),
+        child: SizedBox(
+          width: 40.0,
+          child: InputDecorator(
+            textAlign: TextAlign.center,
+            child: Text(
+              num,
+              textAlign: TextAlign.center,
+              style: GoogleFonts.poppins(
+                fontSize: 30.0,
+                fontWeight: FontWeight.w600,
+              ),
+            ),
+            decoration: const InputDecoration(
+              border: InputBorder.none,
+              counterText: "",
+            ),
+          ),
+        ),
+      ),
+    );
+  }
+}
+
 class MobileNumberInputField extends StatelessWidget {
   const MobileNumberInputField({
     Key? key,
     required String phoneNumber,
-  })  : _phoneNumber = phoneNumber,
+  })  : _textValue = phoneNumber,
         super(key: key);
 
-  final String _phoneNumber;
+  final String _textValue;
 
   @override
   Widget build(BuildContext context) {
@@ -215,7 +320,7 @@ class MobileNumberInputField extends StatelessWidget {
         tag: 'input',
         child: InputDecorator(
           child: Text(
-            _phoneNumber,
+            _textValue,
             style: GoogleFonts.poppins(fontSize: 18.0),
           ),
           decoration: InputDecoration(

@@ -34,7 +34,7 @@ class CustomButton extends StatelessWidget {
         padding: MaterialStateProperty.all(
           const EdgeInsets.symmetric(vertical: 16.0),
         ),
-        backgroundColor: MaterialStateProperty.all(Colors.lightGreen),
+        backgroundColor: MaterialStateProperty.all(primaryColor),
       ),
     );
   }

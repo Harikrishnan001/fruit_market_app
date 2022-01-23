@@ -35,6 +35,7 @@ class NumberButton extends StatelessWidget {
               Text(
                 number.toString(),
                 style: GoogleFonts.poppins(
+                  fontWeight: FontWeight.w500,
                   fontSize: 24.0,
                 ),
               ),
