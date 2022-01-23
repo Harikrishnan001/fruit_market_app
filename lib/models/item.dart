@@ -5,6 +5,7 @@ class Item {
   final bool fav;
   final String description;
   final List<String> nutrition;
+  final String imageURL;
 
   Item({
     required this.name,
@@ -12,6 +13,7 @@ class Item {
     required this.price,
     required this.description,
     required this.nutrition,
+    required this.imageURL,
     this.fav = false,
   });
 }

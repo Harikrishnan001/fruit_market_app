@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-import '/screens/loading_screen.dart';
+import 'package:fruit_market_app/data/fruits.dart';
+import 'screens/details_screen.dart';
 
 void main() {
   runApp(const MyApp());
@@ -10,9 +11,11 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const MaterialApp(
+    return MaterialApp(
       debugShowCheckedModeBanner: false,
-      home: LoadingScreen(),
+      home: DetailsScreen(
+        item: organicFruits[0],
+      ),
     );
   }
 }
