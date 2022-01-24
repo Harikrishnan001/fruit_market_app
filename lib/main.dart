@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:fruit_market_app/screens/main_page.dart';
 import '/screens/account_setting_screen.dart';
 import '/screens/favourites_screen.dart';
 import '/screens/help_screen.dart';
@@ -44,7 +45,7 @@ class MyApp extends StatelessWidget {
         UserInfoScreen.routeName: (_) => const UserInfoScreen(),
         HelpScreen.routeName: (_) => const HelpScreen(),
       },
-      home: const HelpScreen(),
+      home: const MainPage(),
     );
   }
 }
