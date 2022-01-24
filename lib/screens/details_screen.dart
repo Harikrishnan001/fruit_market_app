@@ -8,6 +8,8 @@ class DetailsScreen extends StatelessWidget {
   final Item item;
   const DetailsScreen({Key? key, required this.item}) : super(key: key);
 
+  static const String routeName = "Details";
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(

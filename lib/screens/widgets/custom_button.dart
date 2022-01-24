@@ -6,12 +6,14 @@ class CustomButton extends StatelessWidget {
   final VoidCallback? onPressed;
   final double borderRadius;
   final String text;
-  const CustomButton({
-    Key? key,
-    required this.text,
-    this.onPressed,
-    this.borderRadius = 12.0,
-  }) : super(key: key);
+  final Color? backgroundColor;
+  const CustomButton(
+      {Key? key,
+      required this.text,
+      this.onPressed,
+      this.borderRadius = 12.0,
+      this.backgroundColor})
+      : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -34,7 +36,8 @@ class CustomButton extends StatelessWidget {
         padding: MaterialStateProperty.all(
           const EdgeInsets.symmetric(vertical: 16.0),
         ),
-        backgroundColor: MaterialStateProperty.all(primaryColor),
+        backgroundColor:
+            MaterialStateProperty.all(backgroundColor ?? primaryColor),
       ),
     );
   }

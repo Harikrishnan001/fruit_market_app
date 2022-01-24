@@ -1,13 +1,13 @@
 import 'package:flutter/material.dart';
-import 'package:fruit_market_app/data/orders.dart';
+import 'package:fruit_market_app/data/fruits.dart';
 import 'package:google_fonts/google_fonts.dart';
-
 import '../constants.dart';
-import 'widgets/order_summary.dart';
+import 'widgets/favourite_item.dart';
 
-class MyOrdersScreen extends StatelessWidget {
-  const MyOrdersScreen({Key? key}) : super(key: key);
-  static const String routeName = "MyOrders";
+class FavouritesScreen extends StatelessWidget {
+  const FavouritesScreen({Key? key}) : super(key: key);
+
+  static const String routeName = "Favourites";
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -23,7 +23,7 @@ class MyOrdersScreen extends StatelessWidget {
           },
         ),
         title: Text(
-          'My Orders',
+          'Favourites',
           style: GoogleFonts.poppins(fontSize: 16.0),
         ),
       ),
@@ -32,10 +32,15 @@ class MyOrdersScreen extends StatelessWidget {
           height: 1.0,
           thickness: 1,
         ),
-        itemCount: orders.length,
+        itemCount: organicFruits.length,
         itemBuilder: (context, index) {
-          final orderItem = orders[index];
-          return OrderSummary(orderItem: orderItem);
+          final item = organicFruits[index];
+          return FavouriteItem(
+            item: item,
+            onAdd: (count) {
+              //TODO:order count of items
+            },
+          );
         },
       ),
     );

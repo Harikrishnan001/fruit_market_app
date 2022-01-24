@@ -5,6 +5,8 @@ import 'package:google_fonts/google_fonts.dart';
 class UserInfoScreen extends StatelessWidget {
   const UserInfoScreen({Key? key}) : super(key: key);
 
+  static const String routeName = "UserInfo";
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(

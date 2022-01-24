@@ -5,6 +5,7 @@ import 'package:google_fonts/google_fonts.dart';
 
 class IntroScreen extends StatefulWidget {
   const IntroScreen({Key? key}) : super(key: key);
+  static const String routeName = "Intro";
 
   @override
   _IntroScreenState createState() => _IntroScreenState();

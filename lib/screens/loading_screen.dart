@@ -5,6 +5,7 @@ import 'dart:math' as Math;
 
 class LoadingScreen extends StatefulWidget {
   const LoadingScreen({Key? key}) : super(key: key);
+  static const String routeName = "Loading";
 
   @override
   State<LoadingScreen> createState() => _LoadingScreenState();

@@ -6,7 +6,7 @@ import 'widgets/number_button.dart';
 
 class MobileVerificationScreen extends StatefulWidget {
   const MobileVerificationScreen({Key? key}) : super(key: key);
-
+  static const String routeName = "MobileVerification";
   @override
   State<MobileVerificationScreen> createState() =>
       _MobileVerificationScreenState();
