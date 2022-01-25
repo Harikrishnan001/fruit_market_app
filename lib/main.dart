@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:fruit_market_app/screens/main_page.dart';
+import 'screens/shopping_cart_screen.dart';
 import '/screens/account_setting_screen.dart';
 import '/screens/favourites_screen.dart';
 import '/screens/help_screen.dart';
@@ -40,12 +40,14 @@ class MyApp extends StatelessWidget {
         MyAccountScreen.routeName: (_) => const MyAccountScreen(),
         MyOrdersScreen.routeName: (_) => const MyOrdersScreen(),
         NotificationScreen.routeName: (_) => const NotificationScreen(),
-        NotificationSettingScreen.routeName: (_) => const NotificationScreen(),
+        NotificationSettingScreen.routeName: (_) =>
+            const NotificationSettingScreen(),
         SettingsScreen.routeName: (_) => const SettingsScreen(),
         UserInfoScreen.routeName: (_) => const UserInfoScreen(),
         HelpScreen.routeName: (_) => const HelpScreen(),
+        ShoppingCartScreen.routeName: (_) => const ShoppingCartScreen(),
       },
-      home: const MainPage(),
+      home: const ShoppingCartScreen(),
     );
   }
 }

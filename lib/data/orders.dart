@@ -10,5 +10,6 @@ final orders = <Order>[
       delivery: DateTime.now(),
       item: item,
       rating: 3,
+      offer: 30,
     )
 ];

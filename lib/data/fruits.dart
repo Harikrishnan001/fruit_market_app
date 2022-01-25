@@ -1,7 +1,8 @@
 import 'package:fruit_market_app/models/item.dart';
 
 final organicFruits = <Item>[
-  Item(
+  const Item(
+    category: 0,
     name: 'Strawberry',
     rating: 4,
     price: 580,
@@ -18,7 +19,8 @@ final organicFruits = <Item>[
       'Calcium'
     ],
   ),
-  Item(
+  const Item(
+    category: 0,
     name: 'Grapes',
     rating: 5,
     price: 125,
@@ -37,7 +39,8 @@ final organicFruits = <Item>[
       'Phosphorous'
     ],
   ),
-  Item(
+  const Item(
+    category: 0,
     name: 'Oranges',
     rating: 3,
     price: 230,
