@@ -19,7 +19,7 @@ class AdderSubtractor extends StatelessWidget {
       mainAxisSize: MainAxisSize.min,
       children: [
         GestureDetector(
-          onTap: onIncrement,
+          onTap: onDecrement,
           child: Container(
               height: 30.0,
               width: 30.0,
@@ -42,7 +42,7 @@ class AdderSubtractor extends StatelessWidget {
           ),
         ),
         GestureDetector(
-          onTap: onDecrement,
+          onTap: onIncrement,
           child: Container(
             height: 30.0,
             width: 30.0,

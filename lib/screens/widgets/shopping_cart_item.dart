@@ -3,13 +3,35 @@ import 'package:fruit_market_app/screens/widgets/adder_subtractor.dart';
 import 'package:google_fonts/google_fonts.dart';
 import '/models/order.dart';
 
-class ShoppingCartItem extends StatelessWidget {
+class ShoppingCartItem extends StatefulWidget {
   const ShoppingCartItem({
     Key? key,
     required this.order,
   }) : super(key: key);
 
   final Order order;
+
+  @override
+  State<ShoppingCartItem> createState() => _ShoppingCartItemState();
+}
+
+class _ShoppingCartItemState extends State<ShoppingCartItem> {
+  late int count;
+
+  @override
+  void initState() {
+    super.initState();
+    count = widget.order.qty;
+  }
+
+  void _updateQty(int value) {
+    if (value < 1 || value > 500) return;
+    setState(() {
+      count = value;
+    });
+
+    //TODO:update the count
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -27,7 +49,7 @@ class ShoppingCartItem extends StatelessWidget {
                     height: 100.0,
                     width: 100.0,
                     child: Image.network(
-                      order.item.imageURL,
+                      widget.order.item.imageURL,
                       fit: BoxFit.cover,
                     ),
                   ),
@@ -46,7 +68,7 @@ class ShoppingCartItem extends StatelessWidget {
                         SizedBox(
                           width: 120,
                           child: Text(
-                            order.item.name,
+                            widget.order.item.name,
                             maxLines: 1,
                             overflow: TextOverflow.ellipsis,
                             style: GoogleFonts.poppins(
@@ -55,29 +77,32 @@ class ShoppingCartItem extends StatelessWidget {
                             ),
                           ),
                         ),
-                        if (order.offer != 0)
-                          Text(
-                            'Rs ${order.offer} Saved',
-                            textAlign: TextAlign.start,
-                            overflow: TextOverflow.ellipsis,
-                            style: GoogleFonts.poppins(
-                              fontSize: 14.0,
-                              color: const Color(0xFF69A03A),
+                        if (widget.order.offer != 0)
+                          FittedBox(
+                            fit: BoxFit.cover,
+                            child: Text(
+                              'Rs ${widget.order.offer} Saved',
+                              textAlign: TextAlign.start,
+                              overflow: TextOverflow.ellipsis,
+                              style: GoogleFonts.poppins(
+                                fontSize: 10.0,
+                                color: const Color(0xFF69A03A),
+                              ),
                             ),
                           ),
                         const Spacer(),
                       ],
                     ),
-                    if (order.offer != 0)
+                    if (widget.order.offer != 0)
                       Text(
-                        'Rs ${order.item.price}',
+                        'Rs ${widget.order.item.price}',
                         style: GoogleFonts.poppins(
                           fontSize: 14.0,
                           decoration: TextDecoration.lineThrough,
                         ),
                       ),
                     Text(
-                      'Rs ${order.item.price - order.offer} / Kg',
+                      'Rs ${widget.order.item.price - widget.order.offer} / Kg',
                       style: GoogleFonts.poppins(
                         fontSize: 16.0,
                         fontWeight: FontWeight.w600,
@@ -87,9 +112,13 @@ class ShoppingCartItem extends StatelessWidget {
                       children: [
                         const Spacer(),
                         AdderSubtractor(
-                          onDecrement: () {},
-                          onIncrement: () {},
-                          value: order.qty,
+                          onDecrement: () {
+                            _updateQty(count - 1);
+                          },
+                          onIncrement: () {
+                            _updateQty(count + 1);
+                          },
+                          value: count,
                         ),
                       ],
                     ),

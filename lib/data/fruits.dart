@@ -20,7 +20,7 @@ final organicFruits = <Item>[
     ],
   ),
   const Item(
-    category: 0,
+    category: 1,
     name: 'Grapes',
     rating: 5,
     price: 125,
