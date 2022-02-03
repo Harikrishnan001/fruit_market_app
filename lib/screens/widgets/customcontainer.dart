@@ -16,17 +16,14 @@ class TapContainer extends StatefulWidget {
 }
 
 class _TapContainerState extends State<TapContainer> {
-  Color getColor()
-  {
-       if(widget.item.fav==false)
-       {
-         return  Colors.grey;
-       }
-       else
-       {
-         return Colors.red;
-       }
+  Color getColor() {
+    if (widget.item.fav == false) {
+      return Colors.grey;
+    } else {
+      return Colors.red;
+    }
   }
+
   @override
   Widget build(BuildContext context) {
     return InkWell(
@@ -38,24 +35,35 @@ class _TapContainerState extends State<TapContainer> {
                 alignment: AlignmentDirectional.topEnd,
                 children: [
                   SizedBox(
-                      height: 100,
-                      width: 150,
-                      child: Image.network(widget.item.imageURL),
-                    ),
-                  GestureDetector(
-                    onTap: ()
-                    {
-                      
-                      setState(() {
-                        widget.item.fav=widget.item.fav==false?true:false;
-                       
-                     
-                      });
-                    },
-                    child: Icon(
-                      Icons.favorite,
-                      color:getColor(),
-                  )
+                    height: 100,
+                    width: 150,
+                    child: Image.network(widget.item.imageURL),
+                  ),
+                  Stack(
+                    alignment: AlignmentDirectional.center,
+                    children: [
+                      const Icon(
+                        Icons.circle,
+                        size: 40,
+                        color: Colors.white,
+                      ),
+                      const Icon(
+                        Icons.favorite,
+                        color: Colors.orange,
+                        size: 28,
+                      ),
+                      GestureDetector(
+                          onTap: () {
+                            setState(() {
+                              widget.item.fav =
+                                  widget.item.fav == false ? true : false;
+                            });
+                          },
+                          child: Icon(
+                            Icons.favorite,
+                            color: getColor(),
+                          )),
+                    ],
                   )
                 ],
               ),
