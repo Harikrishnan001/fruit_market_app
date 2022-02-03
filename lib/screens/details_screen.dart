@@ -21,7 +21,7 @@ class DetailsScreen extends StatelessWidget {
             color: Colors.white,
           ),
           onPressed: () {
-            //TODO:Go back
+            Navigator.pop(context);
           },
         ),
         title: Text(

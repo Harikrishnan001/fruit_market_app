@@ -1,14 +1,14 @@
 class Item {
   final String name;
-  final int rating;
+  int rating;
   final int price;
-  final bool fav;
+  bool fav;
   final String description;
   final List<String> nutrition;
   final String imageURL;
   final int category;
 
-  const Item({
+  Item({
     required this.name,
     required this.rating,
     required this.price,

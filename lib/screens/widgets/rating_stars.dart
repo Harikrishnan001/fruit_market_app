@@ -18,7 +18,7 @@ class RatingStars extends StatelessWidget {
   Widget build(BuildContext context) {
     return Row(
       children: [
-        for (int i = 1; i <= 5; i++)
+        for (int i = 1; i <= max; i++)
           GestureDetector(
             onTap: () => onTap(i),
             child: Icon(
